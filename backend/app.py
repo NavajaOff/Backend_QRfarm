@@ -63,6 +63,45 @@ def health_check():
         "message": "Servidor activo"
     }), 200
 
+@app.route('/api/test-db', methods=['GET'])
+def test_db_connection():
+    """Endpoint para probar la conexión a la base de datos MySQL"""
+    try:
+        print("Probando conexión a la base de datos MySQL...")
+
+        # Obtener conexión usando la configuración existente
+        conn = get_connection()
+        cursor = conn.cursor(dictionary=True)
+
+        # Consulta simple para probar la conexión (contar registros en una tabla)
+        cursor.execute("SELECT COUNT(*) as total FROM usuarios")
+        result = cursor.fetchone()
+
+        cursor.close()
+        conn.close()
+
+        print(f"Conexión exitosa. Total de usuarios: {result['total']}")
+
+        return jsonify({
+            "status": "success",
+            "message": "Conexión a la base de datos exitosa",
+            "data": {
+                "total_usuarios": result['total'],
+                "database": "ferrocarril",
+                "host": "shortline.proxy.rlwy.net"
+            }
+        }), 200
+
+    except Exception as e:
+        print(f"Error en la conexión a la base de datos: {str(e)}")
+        import traceback
+        traceback.print_exc()
+        return jsonify({
+            "status": "error",
+            "message": "Error de conexión a la base de datos",
+            "error": str(e)
+        }), 500
+
 @app.route('/api/usuarios/', methods=['GET'])
 def obtener_usuarios():
     """Endpoint para obtener lista de usuarios desde la base de datos"""

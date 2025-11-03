@@ -9,11 +9,11 @@ class Config:
 
     # Database configuration
     DB_CONFIG: Dict[str, Any] = {
-        'host': os.environ.get('DB_HOST', 'localhost'),
-        'user': os.environ.get('DB_USER', 'user'),
-        'password': os.environ.get('DB_PASSWORD', 'password'),
-        'database': os.environ.get('DB_NAME', 'qr_farm'),
-        'port': int(os.environ.get('DB_PORT', '3306')),
+        'host': os.environ.get('DB_HOST', 'shortline.proxy.rlwy.net'),
+        'user': os.environ.get('DB_USER', 'root'),
+        'password': os.environ.get('DB_PASSWORD', 'JoE6XNQo0oXrLoNGKyp0tWuEgRQojRwl'),
+        'database': os.environ.get('DB_NAME', 'ferrocarril'),
+        'port': int(os.environ.get('DB_PORT', '39213')),
         'raise_on_warnings': True,
         'autocommit': False,  # We want to control transactions explicitly
         'pool_name': 'qr_farm_pool',
