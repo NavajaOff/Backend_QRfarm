@@ -42,10 +42,12 @@ class ConexionBaseDatos:
                 'port': int(os.getenv('DB_PORT', '3306')),
                 'use_unicode': True,
                 'charset': 'utf8mb4',
-                'ssl_disabled': True
+                'ssl_disabled': False,
+                'ssl_verify_identity': False
             }
             # Probar conexión
             self._obtener_conexion()
+            print("✅ Conexión MySQL con SSL establecida correctamente")
             registrador.info("Conexión a la base de datos inicializada correctamente")
         except Error as e:
             registrador.error(f"Error al inicializar la conexión a la base de datos: {e}")
